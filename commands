@@ -11,6 +11,7 @@ docker-compose down -v
 docker ps
 
 docker volume prune
+docker volume prune
 
 docker exec -it node-app-docker_node-app_1 bash
 docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d
