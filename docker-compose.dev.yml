@@ -12,6 +12,7 @@ services:
     - NODE_ENV=development
     - MONGO_USER=emo
     - MONGO_PASSWORD=123
+    - REDIS_SECRET=secret
     command: npm run dev
   mongo:
       environment:

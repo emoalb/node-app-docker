@@ -16,3 +16,7 @@ docker volume prune
 docker exec -it node-app-docker_node-app_1 bash
 docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d
 docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
+
+docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d --build -V
+
+docker logs node-app-docker_node-app_1 -f
