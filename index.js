@@ -14,18 +14,20 @@ const { createClient } = require("redis")
 console.log(REDIS_URL)
 let redisClient = createClient({
     url:`redis://${REDIS_URL}:${REDIS_PORT}`,
-    legacyMode: true })
-    
-redisClient.connect().catch(console.error)
+    legacyMode: true });
+
+    (()=>{
+        console.log("Redis Connection")
+        setTimeout(async ()=>{await  redisClient.connect().then(console.log("connected to redis db")).catch(console.error)},10000)
+        
+    })();
+   
+   // (async ()=>{await redisClient.set("name","test redis db")
+  //       redisClient.get("name",(err,val)=>{ console.log(val);})       
+  //  })()
 
 
-// let redisClient = redis.createClient({
-    // host:REDIS_URL,
-    // port: REDIS_PORT,
-   // legacyMode: true
-// })
 
-// redisClient.connect();
 const app = express();
 
 const mongoURL = `mongodb://${MONGO_USER}:${MONGO_PASSWORD}@${MONGO_IP}:${MONGO_PORT}/?authSource=admin`;
