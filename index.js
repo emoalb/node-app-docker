@@ -16,15 +16,15 @@ let redisClient = createClient({
     url:`redis://${REDIS_URL}:${REDIS_PORT}`,
     legacyMode: true });
 
-    (()=>{
+    (async()=>{
         console.log("Redis Connection")
-        setTimeout(async ()=>{await  redisClient.connect().then(console.log("connected to redis db")).catch(console.error)},10000)
+         await  redisClient.connect().then(console.log("connected to redis db")).catch(console.error)
         
     })();
    
-   // (async ()=>{await redisClient.set("name","test redis db")
-  //       redisClient.get("name",(err,val)=>{ console.log(val);})       
-  //  })()
+   (async ()=>{await redisClient.set("name","test redis db")
+       redisClient.get("name",(err,val)=>{ console.log(val);})       
+ })()
 
 
 
@@ -52,12 +52,12 @@ app.use(session({
         secure:false,
         resave:false,
         httpOnly:true,
-        maxAge:30000
+        maxAge:3000000
     }
 }))
 app.use(express.json());
 app.get("/",(req,res)=>{
-    res.send("<p>Hello!!!</p>")
+    res.send("<p>Hello!</p>")
 });
 app.use("/api/posts",postRouter);
 app.use("/api/users",userRouter);
