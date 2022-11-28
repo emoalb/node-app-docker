@@ -59,8 +59,8 @@ app.use(express.json());
 app.get("/",(req,res)=>{
     res.send("<p>Hello!</p>")
 });
-app.use("/api/posts",postRouter);
-app.use("/api/users",userRouter);
+app.use("/api/v1/posts",postRouter);
+app.use("/api/v1/users",userRouter);
 const port = process.env.PORT || 3000;
 
 app.listen(port, ()=>console.log(`Listening on ${port}`));
