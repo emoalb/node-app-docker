@@ -4,8 +4,11 @@ const Post = require("../models/postModel")
 exports.getAllPosts = async (req,res,next) =>{
     try {
         const posts  = await Post.find();
-
-        res.status(200).json({
+            console.log("\\\\\REQUEST\\\\");
+            console.log(req)
+            console.log("\\\\\RESPONSE\\\\");
+          //  console.log(res)
+            res.status(200).json({
             status:'succes',
             results:posts.length,
             data:{

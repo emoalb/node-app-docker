@@ -1,8 +1,9 @@
-const { MONGO_USER, MONGO_PASSWORD, MONGO_IP, MONGO_PORT, REDIS_URL, REDIS_PORT, REDIS_SECRET } = require("./config/config");
+const { MONGO_USER, MONGO_PASSWORD, MONGO_IP, 
+    MONGO_PORT, REDIS_URL, REDIS_PORT, REDIS_SECRET } = require("./config/config");
 const express = require("express");
 const mongoose = require("mongoose");
 const session = require("express-session");
-
+const cors = require("cors")
 const postRouter = require("./routes/postRoutes")
 const userRouter = require("./routes/userRoutes");
 
@@ -43,6 +44,8 @@ const connectWithRetry = () =>{
     );
 };
 connectWithRetry();
+app.enable('trust proxy')
+app.use(cors())
 app.use(session({
     store: new RedisStore({client:redisClient}),
     secret:REDIS_SECRET,
@@ -52,12 +55,13 @@ app.use(session({
         secure:false,
         resave:false,
         httpOnly:true,
-        maxAge:3000000
+        maxAge:60000
     }
 }))
 app.use(express.json());
 app.get("/",(req,res)=>{
     res.send("<p>Hello!</p>")
+    console.log("hello")
 });
 app.use("/api/v1/posts",postRouter);
 app.use("/api/v1/users",userRouter);
